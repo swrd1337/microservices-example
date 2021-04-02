@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+#      default-filters:
+#        - TokenRelay
+      discovery:        locator:          enabled: true
+          lower-case-service-id: true
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            token-uri: http://localhost:8888/auth/realms/master/protocol/openid-connect/token
+            authorization-uri: http://localhost:8888/auth/realms/master/protocol/openid-connect/auth
+            user-info-uri: http://localhost:8888/auth/realms/master/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
+        registration:
+          keycloak-with-test-scope:
+            provider: keycloak
+            client-id: spring-with-test-scope
+            client-secret: 392c59b5-a4a4-44a4-b8a1-1fae10c008ff
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+
+server.port: 8060
+spring.main.allow-bean-definition-overriding: true
+eureka.client.serviceUrl.defaultZone: http://localhost:8761/eureka
+#logging.level:
+#  org.springframework.cloud.gateway: DEBUG
+#  org.springframework.security: DEBUG
+#  org.springframework.web.reactive.function.client: TRACE
