@@ -1,5 +1,6 @@
 package com.swrd.microservices.currencyconversionservice;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,9 +14,10 @@ public class SampleApiController {
 		return "Root DATA";
 	}
 
+	@PreAuthorize("hasAuthority('SCOPE_TEST')")
 	@GetMapping("/data")
 	public String sampleApiCall() {
-		return "Some sample secured DATA";
+		return "SECURED DATA API CALL!";
 	}
 
 }

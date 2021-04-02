@@ -10,13 +10,14 @@ public class ApiGatewayConfiguration {
 
 	@Bean
 	public RouteLocator gatewayRouter(RouteLocatorBuilder builder) {
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 		return builder.routes()
 				.route(p -> p
 						.path("/sample/**")
 						.uri("lb://sample-service"))
 				.route(p -> p
 						.path("/api/**")
-						.filters(f -> f.rewritePath(
+						.filters(f -> f.addResponseHeader(
 								"/api/(?<segment>.*)",
 								"/sample/${segment}"))
 						.uri("lb://sample-service"))
