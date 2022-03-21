@@ -1,1 +1,1 @@
-# microservices-example
+## Spring Boot Microservices sample/template project
